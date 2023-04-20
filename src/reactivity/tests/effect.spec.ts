@@ -70,7 +70,10 @@ describe('effect', () => {
     obj.prop = 2
     expect(dummy).toBe(2)
     stop(runner)
-    obj.prop = 3
+    // obj.prop = 3
+
+    // 触发了get操作，重新收集依赖
+    obj.prop++
     expect(dummy).toBe(2)
 
     // stopped effect should be manually invoked
@@ -89,7 +92,7 @@ describe('effect', () => {
       },
       {
         onStop
-    }
+      }
     )
     stop(runner)
     expect(onStop).toHaveBeenCalledTimes(1)
