@@ -1,7 +1,7 @@
 import { extend } from "../shared"
 
 let activeEffect
-let shouldTrack
+let shouldTrack = false
 
 class ReactiveEffect {
   private _fn: any
@@ -64,7 +64,7 @@ export function track(target, key) {
   }
 
   // 如果activeEffect已经在dep中，说明已经收集过依赖了
-  if (!dep.has(activeEffect)) return
+  if (dep.has(activeEffect)) return
   dep.add(activeEffect)
   activeEffect.deps.push(dep)
 
